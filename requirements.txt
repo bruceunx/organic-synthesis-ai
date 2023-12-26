@@ -1,0 +1,9 @@
+pandas==2.1.4
+PyYAML==6.0.1
+rdchiral==1.1.0
+rdkit==2023.9.3
+scipy==1.11.4
+torch==2.1.2
+torchaudio==2.1.2
+torchserve==0.9.0
+torchvision==0.16.2

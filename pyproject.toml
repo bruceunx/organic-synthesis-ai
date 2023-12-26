@@ -1,0 +1,31 @@
+[tool.pyright]
+venvPath = "/opt/homebrew/Caskroom/miniconda/base/envs"
+venv="ds"
+
+[tool.mypy]
+ignore_missing_imports = true
+python_executable = "/opt/homebrew/Caskroom/miniconda/base/envs/ds/bin/python"
+
+[tool.pytest.ini_options]
+addopts = "-p no:warnings"
+# addopts = "--cov --cov-report html --cov-report term-missing --cov-fail-under 95"
+
+[tool.yapf]
+blank_line_before_nested_class_or_def = true
+column_limit = 88
+
+[tool.pylint]
+max-line-length = 88
+disable = [
+    "C0103", # (invalid-name)
+    "C0114", # (missing-module-docstring)
+    "C0115", # (missing-class-docstring)
+    "C0116", # (missing-function-docstring)
+    "R0903", # (too-few-public-methods)
+    "R0913", # (too-many-arguments)
+    "W0105", # (pointless-string-statement)
+]
+
+[tool.ruff]
+fixable=["ALL"]
+# unfixable=["unused-import"]
