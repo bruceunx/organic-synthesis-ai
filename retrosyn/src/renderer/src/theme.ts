@@ -1,10 +1,18 @@
-import { extendBaseTheme } from '@chakra-ui/react'
+import { extendTheme } from '@chakra-ui/react'
 
-export const theme = extendBaseTheme({
+export const theme = extendTheme({
+  styles: {
+    gloval: {
+      a: {
+        _hover: {
+          textDecoration: 'none',
+        },
+      },
+    },
+  },
   components: {
     Link: {
-      textDecoration: 'none',
-      _hover: {
+      baseStyle: {
         textDecoration: 'none',
       },
     },

@@ -42,7 +42,7 @@ const LeftBar: React.FC<leftbarOpts> = ({ toggle }) => {
         direction="column"
         width="100%"
       >
-        <Link to="/" style={{ width: '100%', textDecoration: 'none' }}>
+        <Link to="/" style={{ width: '100%' }}>
           <HStack
             _hover={{
               bgColor: 'gray.600',
@@ -55,7 +55,7 @@ const LeftBar: React.FC<leftbarOpts> = ({ toggle }) => {
             {toggle && <Text fontSize="20">合成查询</Text>}
           </HStack>
         </Link>
-        <Link to="/history" style={{ width: '100%', textDecoration: 'none' }}>
+        <Link to="/history" style={{ width: '100%' }}>
           <HStack
             _hover={{
               bgColor: 'gray.600',
@@ -68,7 +68,7 @@ const LeftBar: React.FC<leftbarOpts> = ({ toggle }) => {
             {toggle && <Text fontSize="20">历史查询</Text>}
           </HStack>
         </Link>
-        <Link to="/setting" style={{ width: '100%', textDecoration: 'none' }}>
+        <Link to="/setting" style={{ width: '100%' }}>
           <HStack
             _hover={{
               bgColor: 'gray.600',
