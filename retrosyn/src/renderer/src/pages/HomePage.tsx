@@ -1,16 +1,11 @@
-import { ButtonGroup } from '@chakra-ui/react'
+import Board from '@renderer/components/Board'
+import { ReactFlowProvider } from 'reactflow'
 
 const HomePage: React.FC = () => {
   return (
-    <>
-      <ButtonGroup
-        variant="outline"
-        spacing="6"
-        justifyContent="center"
-        height="10%"
-        py={3}
-      ></ButtonGroup>
-    </>
+    <ReactFlowProvider>
+      <Board />
+    </ReactFlowProvider>
   )
 }
 
