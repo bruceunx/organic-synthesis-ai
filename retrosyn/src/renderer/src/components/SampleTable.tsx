@@ -10,46 +10,34 @@ import {
 
 const SampleTable: React.FC = () => {
   return (
-    <TableContainer height="90%" py={5}>
-      <Table size="sm">
+    <TableContainer height="90%" width="80%" py={5}>
+      <Table variant="simple">
         <Thead>
           <Tr>
-            <Th>VIN</Th>
+            <Th>编号</Th>
             <Th>时间</Th>
-            <Th>状态</Th>
-            <Th>图表</Th>
+            <Th>目标</Th>
+            <Th>删除</Th>
           </Tr>
         </Thead>
         <Tbody>
           <Tr>
-            <Td>inches</Td>
+            <Td>1</Td>
             <Td>2022-12-21</Td>
-            <Td>OK</Td>
-            <Td>link</Td>
+            <Td>CCC</Td>
+            <Td>删除</Td>
           </Tr>
           <Tr>
-            <Td>inches</Td>
+            <Td>2</Td>
             <Td>2022-12-21</Td>
-            <Td>NG</Td>
-            <Td>link</Td>
+            <Td>CCCC</Td>
+            <Td>删除</Td>
           </Tr>
           <Tr>
-            <Td>inches</Td>
+            <Td>3</Td>
             <Td>2022-12-21</Td>
-            <Td>OK</Td>
-            <Td>link</Td>
-          </Tr>
-          <Tr>
-            <Td>inches</Td>
-            <Td>2022-12-21</Td>
-            <Td>OK</Td>
-            <Td>link</Td>
-          </Tr>
-          <Tr>
-            <Td>inches</Td>
-            <Td>2022-12-21</Td>
-            <Td>NG</Td>
-            <Td>link</Td>
+            <Td>CCCC</Td>
+            <Td>删除</Td>
           </Tr>
         </Tbody>
       </Table>

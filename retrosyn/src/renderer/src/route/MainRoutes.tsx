@@ -1,7 +1,7 @@
 import HistoryPage from '@renderer/pages/HistoryPage'
 import MainLayout from '../layout/MainLayout'
 import HomePage from '@renderer/pages/HomePage'
-import Setting from '@renderer/pages/Setting'
+import Help from '@renderer/pages/Help'
 
 const MainRoutes = {
   path: '/',
@@ -16,8 +16,8 @@ const MainRoutes = {
       element: <HistoryPage />,
     },
     {
-      path: '/setting',
-      element: <Setting />,
+      path: '/helper',
+      element: <Help />,
     },
   ],
 }

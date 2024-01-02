@@ -4,7 +4,6 @@ import { Box, HStack, Icon, VStack, Text, Flex } from '@chakra-ui/react'
 import {
   MdSettings,
   MdSearch,
-  MdNotificationImportant,
   MdOutlineLogout,
   MdMonitor,
 } from 'react-icons/md'
@@ -68,23 +67,22 @@ const LeftBar: React.FC<leftbarOpts> = ({ toggle }) => {
             {toggle && <Text fontSize="20">历史查询</Text>}
           </HStack>
         </Link>
-        <Link to="/setting" style={{ width: '100%' }}>
+        <Link to="/helper" style={{ width: '100%' }}>
           <HStack
             _hover={{
               bgColor: 'gray.600',
               cursor: 'pointer',
             }}
             onClick={onClick}
-            bgColor={`${location.pathname === '/setting' ? 'blue.500' : ''}`}
+            bgColor={`${location.pathname === '/helper' ? 'blue.500' : ''}`}
           >
             <Icon as={MdSettings} boxSize={50} borderRadius="lg" p={2} />
-            {toggle && <Text fontSize="20">设置</Text>}
+            {toggle && <Text fontSize="20">帮助说明</Text>}
           </HStack>
         </Link>
       </Flex>
 
       <VStack mb={0}>
-        <Icon as={MdNotificationImportant} boxSize={37} />
         <Icon as={MdOutlineLogout} boxSize={37} />
       </VStack>
     </Box>

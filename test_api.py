@@ -4,10 +4,10 @@ url = "http://127.0.0.1:8080/predictions/reaxys"
 
 headers = {"Content-Type": "application/json"}
 
-res = requests.post(url, json={"smiles":["COc1cc(C=CC(=O)O)cc(OC)c1OC"]})
+res = requests.post(url, json={"smiles":["C1C=CC=C(C(=O)OCC(=O)C2C=CC=C2)C=1"]})
 
-# data = res.json()[0]
-# print(data)
+data = res.json()[0]
+print(data)
 breakpoint()
 
 """
