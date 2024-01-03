@@ -2,7 +2,9 @@ import { ElectronAPI } from '@electron-toolkit/preload'
 
 declare global {
   interface Api {
-    onUpdateValue: (callback: (value: number) => void) => void
+    // eslint-disable-next-line
+    onFindRoutes: (smiles: string) => any
+    openFile: () => string
   }
 
   interface Window {

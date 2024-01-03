@@ -1,14 +1,35 @@
-import { app, shell, BrowserWindow } from 'electron'
+import { app, shell, BrowserWindow, dialog, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { EventEmitter } from 'stream'
+import axios from 'axios'
 
-const emitter = new EventEmitter()
+const API = 'http://127.0.0.1:8080'
 
-const intervalId = setInterval(() => {
-  emitter.emit('data', Math.random())
-}, 1000)
+const handleFileOpen = async () => {
+  // eslint-disable-next-line
+  // @ts-ignore
+  const { canceled, filePaths } = await dialog.showOpenDialog()
+  if (!canceled) {
+    return filePaths[0]
+  }
+  return ''
+}
+
+const findRoutes = async (smiles: string) => {
+  const url = `${API}/predictions/reaxys`
+  const data = { smiles: [smiles] }
+  try {
+    const res = await axios.post(url, data)
+    if (res.status === 200) {
+      return res.data[0]
+    } else {
+      return null
+    }
+  } catch (err) {
+    return null
+  }
+}
 
 function createWindow(): void {
   // Create the browser window.
@@ -24,16 +45,11 @@ function createWindow(): void {
     },
   })
 
-  if (emitter !== null) {
-    emitter.on('data', (value) => {
-      mainWindow.webContents.send('update-value', value)
-    })
-  }
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })
 
-  mainWindow.setTitle('Atlas拧紧采集')
+  mainWindow.setTitle('AI Retrosynthesis')
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url)
@@ -57,6 +73,12 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
+  ipcMain.handle('routes:getRoutes', async (_, smiles) => {
+    const res = await findRoutes(smiles)
+    return res
+  })
+  ipcMain.handle('openFile', handleFileOpen)
+
   createWindow()
 
   app.on('activate', function () {
@@ -66,7 +88,6 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', () => {
   // if (process.platform !== 'darwin') {
-  clearTimeout(intervalId)
   app.quit()
 
   // }

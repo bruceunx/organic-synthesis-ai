@@ -39,35 +39,32 @@ export default function Search({
     setEdges([])
     setCurrentNode(null)
 
-    // const smiles = await findSmiles(input);
-    // if (smiles === null) {
-    //   setError(true);
-    // } else {
-    //   const routes = await findRoutes(smiles);
-    //   if (routes === null) {
-    //     setError(true);
-    //   } else {
-    //     const svg = await getChemicalSVG(smiles);
-    //     if (svg !== null) {
-    //       const svgUrl = `data:image/svg+xml,${encodeURIComponent(svg)}`;
-    //       let node = {
-    //         id: "target_0",
-    //         type: "chemNode",
-    //         data: {
-    //           imgUrl: svgUrl,
-    //           isLeaf: false,
-    //           isTarget: true,
-    //           smiles: smiles,
-    //         },
-    //         position: { x: 300, y: 70 },
-    //       };
-    //       setCurrentNode(node);
-    //       setNodes([node]);
-    //       setEdges([]);
-    //       setRoutes(routes);
-    //     }
-    //   }
-    // }
+    // const routes = await window.electronAPI.openFile()
+    const routes = await window.electronAPI.onFindRoutes(input)
+    if (routes === null) {
+      setError(true)
+    } else {
+      // const svg = await getChemicalSVG(smiles);
+      // if (svg !== null) {
+      //   const svgUrl = `data:image/svg+xml,${encodeURIComponent(svg)}`;
+      //   let node = {
+      //     id: "target_0",
+      //     type: "chemNode",
+      //     data: {
+      //       imgUrl: svgUrl,
+      //       isLeaf: false,
+      //       isTarget: true,
+      //       smiles: smiles,
+      //     },
+      //     position: { x: 300, y: 70 },
+      //   };
+      //   setCurrentNode(node);
+      //   setNodes([node]);
+      //   setEdges([]);
+      //   setRoutes(routes);
+      // }
+      console.log(routes)
+    }
     setText('开始查询')
   }
 
