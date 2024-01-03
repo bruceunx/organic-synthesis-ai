@@ -44,30 +44,31 @@ export default function Search({
     if (routes === null) {
       setError(true)
     } else {
-      // const svg = await getChemicalSVG(smiles);
-      // if (svg !== null) {
-      //   const svgUrl = `data:image/svg+xml,${encodeURIComponent(svg)}`;
-      //   let node = {
-      //     id: "target_0",
-      //     type: "chemNode",
-      //     data: {
-      //       imgUrl: svgUrl,
-      //       isLeaf: false,
-      //       isTarget: true,
-      //       smiles: smiles,
-      //     },
-      //     position: { x: 300, y: 70 },
-      //   };
-      //   setCurrentNode(node);
-      //   setNodes([node]);
-      //   setEdges([]);
-      //   setRoutes(routes);
-      // }
-      console.log(routes)
+      const svg = await window.electronAPI.onGetSvg(input)
+      if (svg !== null) {
+        console.log(svg)
+        const svgUrl = `data:image/svg+xml,${encodeURIComponent(svg)}`
+        const node = {
+          id: 'target_0',
+          type: 'chemNode',
+          data: {
+            imgUrl: svgUrl,
+            isLeaf: false,
+            isTarget: true,
+            smiles: input,
+          },
+          position: { x: 300, y: 70 },
+        }
+        setCurrentNode(node)
+        setNodes([node])
+        //   setEdges([]);
+        //   setRoutes(routes);
+        // }
+        console.log(routes)
+      }
+      setText('开始查询')
     }
-    setText('开始查询')
   }
-
   return (
     <Flex
       direction="row"

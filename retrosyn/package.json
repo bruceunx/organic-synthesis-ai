@@ -26,6 +26,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@heroicons/react": "^2.1.1",
+    "@rdkit/rdkit": "2023.9.2-1.0.0",
     "@tanstack/react-table": "^8.10.7",
     "axios": "^1.6.3",
     "electron-updater": "^6.1.1",

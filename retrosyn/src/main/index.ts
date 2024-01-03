@@ -3,6 +3,15 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import axios from 'axios'
+import initRDKitModule from '@rdkit/rdkit'
+
+let rdkit
+
+// eslint-disable-next-line
+// @ts-ignore
+initRDKitModule().then((RDKit) => {
+  rdkit = RDKit
+})
 
 const API = 'http://127.0.0.1:8080'
 
@@ -16,7 +25,24 @@ const handleFileOpen = async () => {
   return ''
 }
 
+const getSvg = async (
+  smiles: string,
+  width: number = 200,
+  height: number = 200,
+) => {
+  const mol = rdkit.get_mol(smiles)
+  const svg: string = mol.get_svg(width, height)
+  let lines = svg.split('\n')
+  lines = lines.filter((line: string) => !line.startsWith('<rect'))
+  return lines.join('\n')
+}
+
 const findRoutes = async (smiles: string) => {
+  //eslint-disable-next-line
+  // @ts-ignore
+  // const rdkit = await initRDKit()
+  const mol = rdkit.get_mol(smiles)
+  console.log(mol.get_svg())
   const url = `${API}/predictions/reaxys`
   const data = { smiles: [smiles] }
   try {
@@ -75,6 +101,10 @@ app.whenReady().then(() => {
 
   ipcMain.handle('routes:getRoutes', async (_, smiles) => {
     const res = await findRoutes(smiles)
+    return res
+  })
+  ipcMain.handle('svg', async (_, smiles) => {
+    const res = await getSvg(smiles)
     return res
   })
   ipcMain.handle('openFile', handleFileOpen)

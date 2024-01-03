@@ -19,8 +19,7 @@ export default function Board(): React.ReactNode {
 
   console.log(routes, conditions, selectCondition)
 
-  // eslint-disable-next-line
-  const handleSelect: (any) => void = (node: Node | null) => {
+  const handleSelect: (s: Node | null) => void = (node: Node | null) => {
     setRoutes([])
     setConditions([])
     setSelectCondition({})
