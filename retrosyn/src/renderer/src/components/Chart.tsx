@@ -63,17 +63,6 @@ const Chart: React.FC<ChartProps> = ({ handleSelect }: ChartProps) => {
     }
   }, [rfInstance])
 
-  const onExport = useCallback(() => {
-    if (rfInstance) {
-      // @ts-ignore-next-line
-      const flow = rfInstance.toObject()
-      console.log(flow)
-      // const analysis = new Analyzer(flow);
-      // console.log(JSON.stringify(analysis.getNodeLink()));
-      // upload to api and get pdf
-    }
-  }, [rfInstance])
-
   const onNodesDelete = useCallback(
     // eslint-disable-next-line
     (deleted: any) => {
@@ -113,7 +102,7 @@ const Chart: React.FC<ChartProps> = ({ handleSelect }: ChartProps) => {
   )
 
   return (
-    <Flex className="w-full h-full">
+    <Flex width="100%" height="100%" borderY="1px" borderColor="gray.400">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -131,12 +120,7 @@ const Chart: React.FC<ChartProps> = ({ handleSelect }: ChartProps) => {
       >
         <Background gap={20} />
         <Panel position="top-right">
-          <Button variant="outline" onClick={onSave}>
-            保存
-          </Button>
-          <Button variant="outline" color="indigo" onClick={onExport}>
-            导出
-          </Button>
+          <Button onClick={onSave}>保存</Button>
         </Panel>
       </ReactFlow>
     </Flex>

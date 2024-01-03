@@ -28,13 +28,13 @@ export default function Board(): React.ReactNode {
   }
 
   return (
-    <Flex direction="column" width="100%">
+    <Flex direction="column" width="100%" height="100%" align="center">
       <Search
         setRoutes={setRoutes}
         setConditions={setConditions}
         setCurrentNode={setCurrentNode}
       />
-      <Flex width="100%" className="h-80">
+      <Flex width="100%" height="40%">
         <Chart handleSelect={handleSelect} />
       </Flex>
       <Flex height="50%" width="100%" direction="row">

@@ -72,14 +72,21 @@ export default function Search({
   }
 
   return (
-    <Flex direction="row" justify="center" gap="2" align="center" p="2">
+    <Flex
+      direction="row"
+      justify="center"
+      gap="2"
+      align="center"
+      p="2"
+      width="50%"
+    >
       <InputGroup>
-        <InputLeftElement pointerEvents="none">
-          <MagnifyingGlassIcon color="gray.300" />
+        <InputLeftElement pointerEvents="none" p="2">
+          <MagnifyingGlassIcon />
         </InputLeftElement>
         <Input
           type="text"
-          placeholder="输入产品名称或者SMILES来查询"
+          placeholder="仅支持SMILES来查询"
           value={input}
           onChange={(e) => {
             setInput(e.target.value)
@@ -87,13 +94,14 @@ export default function Search({
           }}
         />
       </InputGroup>
-
       {error && (
         <Text size="2" color="red">
           无法获取路线:( 可以再次尝试
         </Text>
       )}
-      <Button onClick={handleClick}>{text}</Button>
+      <Button onClick={handleClick} color="gray.500">
+        {text}
+      </Button>
       <ChemEditor setInput={setInput} />
     </Flex>
   )

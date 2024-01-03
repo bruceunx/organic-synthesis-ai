@@ -13,8 +13,8 @@ const intervalId = setInterval(() => {
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 1500,
-    height: 750,
+    width: 1700,
+    height: 950,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
