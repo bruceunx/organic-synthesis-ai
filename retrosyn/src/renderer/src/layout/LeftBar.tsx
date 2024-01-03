@@ -1,12 +1,7 @@
 import React from 'react'
 
 import { Box, HStack, Icon, VStack, Text, Flex } from '@chakra-ui/react'
-import {
-  MdSettings,
-  MdSearch,
-  MdOutlineLogout,
-  MdMonitor,
-} from 'react-icons/md'
+import { MdSettings, MdSearch, MdMonitor } from 'react-icons/md'
 import { useLocation, Link } from 'react-router-dom'
 
 interface leftbarOpts {
@@ -83,7 +78,11 @@ const LeftBar: React.FC<leftbarOpts> = ({ toggle }) => {
       </Flex>
 
       <VStack mb={0}>
-        <Icon as={MdOutlineLogout} boxSize={37} />
+        {toggle && (
+          <Text align="center" color="blue.200">
+            pylogic.net
+          </Text>
+        )}
       </VStack>
     </Box>
   )

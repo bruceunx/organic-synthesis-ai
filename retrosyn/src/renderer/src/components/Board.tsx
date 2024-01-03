@@ -37,11 +37,17 @@ export default function Board(): React.ReactNode {
       <Flex width="100%" height="40%">
         <Chart handleSelect={handleSelect} />
       </Flex>
-      <Flex height="50%" width="100%" direction="row">
-        <Flex className="w-3/4" direction="column"></Flex>
+      <Flex height="60%" width="100%" direction="row">
+        <Flex
+          width="75%"
+          height="100%"
+          direction="column"
+          borderRight="1px"
+          borderColor="gray.400"
+        ></Flex>
         <Flex
           width="25%"
-          height="50%"
+          height="100%"
           align="center"
           direction="column"
           gap="2"

@@ -10,14 +10,14 @@ import {
 
 const SampleTable: React.FC = () => {
   return (
-    <TableContainer height="90%" width="80%" py={5}>
+    <TableContainer height="90%" width="70%" py={5}>
       <Table variant="simple">
         <Thead>
           <Tr>
-            <Th>编号</Th>
-            <Th>时间</Th>
-            <Th>目标</Th>
-            <Th>删除</Th>
+            <Th fontSize="20">编号</Th>
+            <Th fontSize="20">时间</Th>
+            <Th fontSize="20">目标</Th>
+            <Th fontSize="20">删除</Th>
           </Tr>
         </Thead>
         <Tbody>

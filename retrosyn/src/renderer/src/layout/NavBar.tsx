@@ -19,7 +19,7 @@ const NavBar: React.FC<navProps> = ({ toggle, setToggle }) => {
     } else if (location.pathname === '/history') {
       setTitle('历史数据')
     } else {
-      setTitle('设置')
+      setTitle('帮助说明')
     }
   }, [location])
 

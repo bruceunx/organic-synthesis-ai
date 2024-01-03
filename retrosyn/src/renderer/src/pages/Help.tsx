@@ -8,6 +8,8 @@ const Help: React.FC = () => {
       height="100%"
       justify="start"
       align="center"
+      gap={3}
+      py={5}
     >
       <Heading>帮助说明</Heading>
       <Text>
