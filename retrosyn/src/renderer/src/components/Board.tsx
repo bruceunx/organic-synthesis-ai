@@ -4,9 +4,9 @@ import Search from './Search'
 import Chart from './Chart'
 import { Node } from 'reactflow'
 import ReactionList from './ReactionList'
+import ConditionList from './ConditionList'
 // import NodeDetail from "./NodeDetail";
 // import RouteDetail from "./RouteDetail";
-// import Conditions from "./Conditions";
 
 function Board(): React.ReactNode {
   const [currentNode, setCurrentNode] = useState<Node | null>(null)
@@ -65,8 +65,15 @@ function Board(): React.ReactNode {
           borderRight="1px"
           borderColor="gray.400"
         >
-          {routes && currentNode && (
+          {Boolean(routes.length) && currentNode && (
             <ReactionList routes={routes} currentNode={currentNode!} />
+          )}
+          {Boolean(conditions.length) && (
+            <ConditionList
+              conditions={conditions}
+              currentNode={currentNode}
+              setSelectCondition={setSelectCondition}
+            />
           )}
         </Flex>
         <Flex
