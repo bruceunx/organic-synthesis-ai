@@ -46,7 +46,6 @@ export default function Search({
     } else {
       const svg = await window.electronAPI.onGetSvg(input)
       if (svg !== null) {
-        console.log(svg)
         const svgUrl = `data:image/svg+xml,${encodeURIComponent(svg)}`
         const node = {
           id: 'target_0',
@@ -61,11 +60,18 @@ export default function Search({
         }
         setCurrentNode(node)
         setNodes([node])
-        //   setEdges([]);
-        //   setRoutes(routes);
-        // }
-        console.log(routes)
       }
+      const _routes: any[] = []
+      for (let idx = 0; idx < 10; idx++) {
+        _routes.push({
+          reactants: routes.reactants[idx],
+          plausibility: routes.scores[idx],
+        })
+      }
+      setEdges([])
+      // eslint-disable-next-line
+      // @ts-ignore
+      setRoutes(_routes)
       setText('开始查询')
     }
   }

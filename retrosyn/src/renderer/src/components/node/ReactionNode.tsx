@@ -16,9 +16,20 @@ const ReactionNode: React.FC<NodeProps<ReactNodeData>> = ({
   }
 
   return (
-    <Flex direction="column" gap="2">
+    <Flex
+      direction="column"
+      gap="2"
+      width="40px"
+      height="40px"
+      borderRadius="20px"
+      bgColor="red.400"
+      color="white"
+      align="center"
+      justify="center"
+      _hover={{ bgColor: 'red.600' }}
+    >
       <Handle style={handleStyle} type="target" position={Position.Left} />
-      <Text className="text-center">{data.condition}</Text>
+      <Text align="center">{data.condition}</Text>
       <Handle style={handleStyle} type="source" position={Position.Right} />
     </Flex>
   )

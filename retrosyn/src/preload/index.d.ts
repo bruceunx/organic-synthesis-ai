@@ -4,7 +4,11 @@ declare global {
   interface Api {
     // eslint-disable-next-line
     onFindRoutes: (smiles: string) => any
-    onGetSvg: (smiles: string) => string
+    onGetSvg: (
+      smiles: string,
+      width: number = 200,
+      height: numeber = 200,
+    ) => string
     openFile: () => string
   }
 

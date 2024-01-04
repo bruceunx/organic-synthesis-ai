@@ -16,7 +16,14 @@ const ChemNode: React.FC<NodeProps<ChemNodeData>> = ({
   }
 
   return (
-    <Flex direction="column" bgColor="green.200" borderRadius={10} gap="2">
+    <Flex
+      direction="column"
+      bgColor="blue.200"
+      width="90px"
+      height="90px"
+      borderRadius={10}
+      gap="2"
+    >
       <Handle style={handleStyle} type="target" position={Position.Left} />
       <Image src={data.imgUrl} borderRadius={10} alt="chem" />
       {!data.isTarget && (

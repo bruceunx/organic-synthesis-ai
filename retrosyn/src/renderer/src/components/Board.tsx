@@ -1,14 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Flex, Text } from '@chakra-ui/react'
 import Search from './Search'
 import Chart from './Chart'
 import { Node } from 'reactflow'
-// import Reactions from "./Reactions";
+import ReactionList from './ReactionList'
 // import NodeDetail from "./NodeDetail";
 // import RouteDetail from "./RouteDetail";
 // import Conditions from "./Conditions";
 
-export default function Board(): React.ReactNode {
+function Board(): React.ReactNode {
   const [currentNode, setCurrentNode] = useState<Node | null>(null)
 
   const [routes, setRoutes] = useState([])
@@ -17,7 +17,28 @@ export default function Board(): React.ReactNode {
   //eslint-disable-next-line
   const [selectCondition, setSelectCondition] = useState<any>({})
 
-  console.log(routes, conditions, selectCondition)
+  console.log(selectCondition)
+
+  useEffect(() => {
+    const _currentNode = window.localStorage.getItem('currentNode')
+    if (_currentNode !== null) setCurrentNode(JSON.parse(_currentNode))
+    const _routes = window.localStorage.getItem('routes')
+    if (_routes !== null) setRoutes(JSON.parse(_routes))
+    const _conditions = window.localStorage.getItem('conditions')
+    if (_conditions !== null) setConditions(JSON.parse(_conditions))
+  }, [])
+
+  useEffect(() => {
+    window.localStorage.setItem('routes', JSON.stringify(routes))
+  }, [routes])
+
+  useEffect(() => {
+    window.localStorage.setItem('conditions', JSON.stringify(conditions))
+  }, [conditions])
+
+  useEffect(() => {
+    window.localStorage.setItem('currentNode', JSON.stringify(currentNode))
+  }, [currentNode])
 
   const handleSelect: (s: Node | null) => void = (node: Node | null) => {
     setRoutes([])
@@ -39,11 +60,15 @@ export default function Board(): React.ReactNode {
       <Flex height="60%" width="100%" direction="row">
         <Flex
           width="75%"
-          height="100%"
+          height="100%%"
           direction="column"
           borderRight="1px"
           borderColor="gray.400"
-        ></Flex>
+        >
+          {routes && currentNode && (
+            <ReactionList routes={routes} currentNode={currentNode!} />
+          )}
+        </Flex>
         <Flex
           width="25%"
           height="100%"
@@ -59,3 +84,5 @@ export default function Board(): React.ReactNode {
     </Flex>
   )
 }
+
+export default Board

@@ -22,11 +22,11 @@ const nodeTypes = {
 }
 
 const defaultEdgeOptions = {
-  style: { strokeWidth: 1, stroke: 'lightgreen' },
+  style: { strokeWidth: 2, stroke: 'blue' },
   animated: true,
   markerEnd: {
     type: MarkerType.ArrowClosed,
-    color: 'lightgreen',
+    color: 'blue',
   },
 }
 

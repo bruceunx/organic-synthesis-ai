@@ -25,14 +25,10 @@ const handleFileOpen = async () => {
   return ''
 }
 
-const getSvg = async (
-  smiles: string,
-  width: number = 200,
-  height: number = 200,
-) => {
+const getSvg = (smiles: string, width: number = 200, height: number = 200) => {
   const mol = rdkit.get_mol(smiles)
   const svg: string = mol.get_svg(width, height)
-  let lines = svg.split('\n')
+  let lines = svg.split(/\n/)
   lines = lines.filter((line: string) => !line.startsWith('<rect'))
   return lines.join('\n')
 }
@@ -103,10 +99,13 @@ app.whenReady().then(() => {
     const res = await findRoutes(smiles)
     return res
   })
-  ipcMain.handle('svg', async (_, smiles) => {
-    const res = await getSvg(smiles)
-    return res
-  })
+  ipcMain.handle(
+    'svg',
+    (_, smiles, width: number = 200, height: number = 200) => {
+      const res = getSvg(smiles, width, height)
+      return res
+    },
+  )
   ipcMain.handle('openFile', handleFileOpen)
 
   createWindow()
