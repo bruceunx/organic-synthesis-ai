@@ -3,3 +3,4 @@
 /**/*.py[cdo]
 /**/*.so
 mars/
+/**/.DS_Store
