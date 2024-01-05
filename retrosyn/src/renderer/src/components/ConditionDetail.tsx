@@ -13,6 +13,7 @@ const RouteDetail: React.FC<RouteProps> = ({
   const [reagent, setReagent] = useState<string | null>(null)
   const [solvent, setSolvent] = useState<string | null>(null)
   const [catalyst, setCatalyst] = useState<string | null>(null)
+  const [temperature, setTemperature] = useuseState<number | null>(null)
 
   const onClick = async () => {
     setError(false)
@@ -65,8 +66,15 @@ const RouteDetail: React.FC<RouteProps> = ({
           setCatalyst(svgUrl)
         }
       }
+      if (condition.temperature !== null) {
+        setTemperature(condition.temperature)
+      }
     }
-    if (currentNode) {
+    setTemperature(null)
+    setReagent(null)
+    setSolvent(null)
+    setCatalyst(null)
+    if (currentNode.data.detail !== undefined) {
       try {
         const condition = JSON.parse(currentNode.data.detail)
         updateSvg(condition)
@@ -105,7 +113,14 @@ const RouteDetail: React.FC<RouteProps> = ({
       } else {
         setCatalyst(null)
       }
+      if (condition.temperature !== null) {
+        setTemperature(condition.temperature)
+      }
     }
+    setTemperature(null)
+    setReagent(null)
+    setSolvent(null)
+    setCatalyst(null)
     if (Object.keys(selectCondition).length > 0) {
       try {
         updateSvg(selectCondition)
@@ -163,8 +178,7 @@ const RouteDetail: React.FC<RouteProps> = ({
           )}
         </Flex>
         <Text>
-          反应温度: &nbsp;{' '}
-          {JSON.parse(currentNode.data.detail).temperature.toFixed(1)}℃
+          反应温度: &nbsp; {temperature && `${temperature.toFixed(1)}℃ `}
         </Text>
       </Flex>
       <Button borderRadius="full" variant="outline" onClick={onClick}>
