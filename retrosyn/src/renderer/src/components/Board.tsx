@@ -6,6 +6,7 @@ import { Node } from 'reactflow'
 import ReactionList from './ReactionList'
 import ConditionList from './ConditionList'
 import NodeDetail from './NodeDetail'
+import RouteDetail from './ConditionDetail'
 // import NodeDetail from "./NodeDetail";
 // import RouteDetail from "./RouteDetail";
 
@@ -89,6 +90,13 @@ function Board(): React.ReactNode {
           <Flex width="80%" height="100%" direction="column">
             {currentNode && currentNode.type === 'chemNode' && (
               <NodeDetail setRoutes={setRoutes} currentNode={currentNode} />
+            )}
+            {currentNode && currentNode.type === 'reactionNode' && (
+              <RouteDetail
+                setConditions={setConditions}
+                currentNode={currentNode}
+                selectCondition={selectCondition}
+              />
             )}
           </Flex>
         </Flex>

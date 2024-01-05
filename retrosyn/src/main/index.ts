@@ -14,7 +14,7 @@ initRDKitModule().then((RDKit) => {
 })
 
 const API = 'http://127.0.0.1:8080'
-const CONDITION_API = 'http://127.0.0.1:8080'
+const CONDITION_API = 'http://127.0.0.1:8000'
 
 const handleFileOpen = async () => {
   // eslint-disable-next-line
@@ -32,7 +32,7 @@ const findCondition = async (reactants: string, product: string) => {
   try {
     const res = await axios.post(url, data)
     if (res.status === 200) {
-      return res.data[0]
+      return res.data
     } else {
       return null
     }
@@ -41,12 +41,22 @@ const findCondition = async (reactants: string, product: string) => {
   }
 }
 
-const getSvg = (smiles: string, width: number = 200, height: number = 200) => {
-  const mol = rdkit.get_mol(smiles)
-  const svg: string = mol.get_svg(width, height)
-  let lines = svg.split(/\n/)
-  lines = lines.filter((line: string) => !line.startsWith('<rect'))
-  return lines.join('\n')
+const getSvg = async (
+  smiles: string,
+  width: number = 200,
+  height: number = 200,
+) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const mol = rdkit.get_mol(smiles)
+      const svg: string = mol.get_svg(width, height)
+      let lines = svg.split(/\n/)
+      lines = lines.filter((line: string) => !line.startsWith('<rect'))
+      resolve(lines.join('\n'))
+    } catch (err) {
+      reject()
+    }
+  })
 }
 
 const findRoutes = async (smiles: string) => {
@@ -116,8 +126,8 @@ app.whenReady().then(() => {
   })
   ipcMain.handle(
     'svg',
-    (_, smiles, width: number = 200, height: number = 200) => {
-      const res = getSvg(smiles, width, height)
+    async (_, smiles, width: number = 200, height: number = 200) => {
+      const res = await getSvg(smiles, width, height)
       return res
     },
   )

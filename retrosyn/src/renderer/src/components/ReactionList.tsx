@@ -110,7 +110,7 @@ const ReactionList: React.FC<reactionsProps> = ({ routes, currentNode }) => {
       type: 'reactionNode',
       data: {
         condition: '#R',
-        reactants: route.outcome,
+        reactants: route.reactants,
         product: currentNode.data.smiles,
       },
       position: {

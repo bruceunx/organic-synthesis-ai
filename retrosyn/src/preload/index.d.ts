@@ -2,8 +2,8 @@ import { ElectronAPI } from '@electron-toolkit/preload'
 
 declare global {
   interface Api {
-    // eslint-disable-next-line
     onFindRoutes: (smiles: string) => any
+    onFindConditions: (reactants: string, product: string) => any
     onGetSvg: (
       smiles: string,
       width: number = 200,
