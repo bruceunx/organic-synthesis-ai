@@ -67,7 +67,7 @@ const Condition: React.FC<conditionProps> = ({ condition, idx }) => {
             alt="solvent"
             htmlWidth={200}
             htmlHeight={200}
-            bgColor="blue.200"
+            bgColor="gray.200"
             borderRadius={12}
           />
         )}
@@ -79,7 +79,7 @@ const Condition: React.FC<conditionProps> = ({ condition, idx }) => {
             alt="catalyst"
             htmlWidth={200}
             htmlHeight={200}
-            bgColor="blue.200"
+            bgColor="green.200"
             borderRadius={12}
           />
         )}

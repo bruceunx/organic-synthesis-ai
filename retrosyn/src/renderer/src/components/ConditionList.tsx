@@ -24,7 +24,6 @@ const ConditionList: React.FC<any> = ({
   const onChange = (value: string) => {
     setValue(value)
     const condition = conditions[parseInt(value)]
-    console.log(condition)
     setNodes((nodes) =>
       nodes.map((node) => {
         if (node.id === currentNode.id) {

@@ -46,7 +46,7 @@ const getSvg = async (
   width: number = 200,
   height: number = 200,
 ) => {
-  return new Promise((resolve, reject) => {
+  const res = new Promise((resolve, reject) => {
     try {
       const mol = rdkit.get_mol(smiles)
       const svg: string = mol.get_svg(width, height)
@@ -57,6 +57,7 @@ const getSvg = async (
       reject()
     }
   })
+  return await res
 }
 
 const findRoutes = async (smiles: string) => {

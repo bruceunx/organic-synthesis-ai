@@ -52,7 +52,7 @@ export default function Search({
           type: 'chemNode',
           data: {
             imgUrl: svgUrl,
-            isLeaf: false,
+            isLeaf: true,
             isTarget: true,
             smiles: input,
           },
