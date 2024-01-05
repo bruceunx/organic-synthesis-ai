@@ -23,7 +23,7 @@ type reactionsProps = {
 }
 
 const ReactionList: React.FC<reactionsProps> = ({ routes, currentNode }) => {
-  const [defaultValue, setDefaultValue] = useState<string>('0')
+  const [defaultValue, setDefaultValue] = useState<string>('-1')
   const [tempNodes, setTempNodes] = useState<Node[]>([])
   const [tempEdges, setTempEdges] = useState<Edge[]>([])
 
@@ -39,8 +39,10 @@ const ReactionList: React.FC<reactionsProps> = ({ routes, currentNode }) => {
       const svgUrl = `data:image/svg+xml,${encodeURIComponent(svg)}`
 
       const _id = `chemNode_${currentNode.id}_${idx}_${value}`
-      if (idx % 2 === 1) {idx = (idx + 1) / -2 } else{
-        idx = idx /2
+      if (idx % 2 === 1) {
+        idx = (idx + 1) / -2
+      } else {
+        idx = idx / 2
       }
       const offsetY = 100 * idx
       return {
@@ -68,10 +70,11 @@ const ReactionList: React.FC<reactionsProps> = ({ routes, currentNode }) => {
   useEffect(() => {
     setTempNodes([])
     setTempEdges([])
-    setDefaultValue('0')
+    setDefaultValue('-1')
   }, [currentNode])
 
   const onChange = async (value: string) => {
+    if (Number.parseInt(value) < 0) return
     setDefaultValue(value)
 
     if (tempNodes.length > 0) {
