@@ -19,11 +19,12 @@ const ConditionList: React.FC<any> = ({
 }) => {
   const { setNodes } = useReactFlow()
 
-  const [value, setValue] = useState<string>('0')
+  const [value, setValue] = useState<string>('-1')
 
   const onChange = (value: string) => {
     setValue(value)
-    const condition = conditions[parseInt(value) - 1]
+    const condition = conditions[parseInt(value)]
+    console.log(condition)
     setNodes((nodes) =>
       nodes.map((node) => {
         if (node.id === currentNode.id) {
@@ -35,7 +36,7 @@ const ConditionList: React.FC<any> = ({
     setSelectCondition(condition)
   }
   useEffect(() => {
-    setValue('0')
+    setValue('-1')
   }, [currentNode])
 
   return (

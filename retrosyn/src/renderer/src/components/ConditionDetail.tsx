@@ -122,7 +122,7 @@ const RouteDetail: React.FC<RouteProps> = ({
       {currentNode.data.detail ? (
         <Flex direction="column" gap="2" py="4" align="start" justify="start">
           <Flex direction="row" gap="2">
-            <Text className="w-20">反应试剂:</Text>
+            <Text width="20">反应试剂:</Text>
             {reagent && (
               <Image
                 src={reagent}
@@ -136,7 +136,7 @@ const RouteDetail: React.FC<RouteProps> = ({
             )}
           </Flex>
           <Flex direction="row" gap="2">
-            <Text className="w-20">反应溶剂:</Text>
+            <Text width="20">反应溶剂:</Text>
             {solvent && (
               <Image
                 src={solvent}
@@ -150,7 +150,7 @@ const RouteDetail: React.FC<RouteProps> = ({
             )}
           </Flex>
           <Flex direction="row" gap="2">
-            <Text className="w-20">催化剂:</Text>
+            <Text width="20">催化剂:</Text>
             {catalyst && (
               <Image
                 src={catalyst}
@@ -177,7 +177,7 @@ const RouteDetail: React.FC<RouteProps> = ({
       {Boolean(Object.keys(selectCondition).length) && (
         <Flex direction="column" gap="2" py="4" align="start" justify="start">
           <Flex direction="row" gap="2">
-            <Text className="w-20">反应试剂:</Text>
+            <Text width="20">反应试剂:</Text>
             {reagent && (
               <Image
                 src={reagent}
@@ -191,7 +191,7 @@ const RouteDetail: React.FC<RouteProps> = ({
             )}
           </Flex>
           <Flex direction="row" gap="2">
-            <Text className="w-20">反应溶剂:</Text>
+            <Text width="20">反应溶剂:</Text>
             {solvent && (
               <Image
                 src={solvent}
@@ -205,7 +205,7 @@ const RouteDetail: React.FC<RouteProps> = ({
             )}
           </Flex>
           <Flex direction="row" gap="2">
-            <Text className="w-20">催化剂:</Text>
+            <Text width="20">催化剂:</Text>
             {catalyst && (
               <Image
                 src={catalyst}

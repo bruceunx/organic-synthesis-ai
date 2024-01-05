@@ -10,7 +10,7 @@ import {
   TableContainer,
 } from '@chakra-ui/react'
 import Reaction from './Reaction'
-import { useReactFlow, Node, Edge } from 'reactflow'
+import { useReactFlow, Node, getIncomers, getConnectedEdges } from 'reactflow'
 
 type Route = {
   reactants: string
@@ -24,14 +24,9 @@ type reactionsProps = {
 
 const ReactionList: React.FC<reactionsProps> = ({ routes, currentNode }) => {
   const [defaultValue, setDefaultValue] = useState<string>('-1')
-  const [tempNodes, setTempNodes] = useState<Node[]>([])
-  const [tempEdges, setTempEdges] = useState<Edge[]>([])
-
-  const { addEdges, addNodes, setEdges, setNodes, fitView } = useReactFlow()
+  const { getNodes, getEdges, setEdges, setNodes, fitView } = useReactFlow()
 
   const generateNode = async (smiles: string, idx: number, value: number) => {
-    // eslint-disable-next-line
-    // @ts-ignore
     const svg = await window.electronAPI.onGetSvg(smiles)
     if (svg === null) {
       return null
@@ -68,28 +63,38 @@ const ReactionList: React.FC<reactionsProps> = ({ routes, currentNode }) => {
   }
 
   useEffect(() => {
-    setTempNodes([])
-    setTempEdges([])
     setDefaultValue('-1')
   }, [currentNode])
 
   const onChange = async (value: string) => {
-    if (Number.parseInt(value) < 0) return
     setDefaultValue(value)
+    if (Number.parseInt(value) < 0) return
 
-    if (tempNodes.length > 0) {
-      // eslint-disable-next-line
-      // @ts-ignore
-      setNodes((nodes) => nodes.filter((node) => !tempNodes.includes(node.id)))
+    // remove old nodes and old edges
+    const nodes = getNodes()
+    const edges = getEdges()
+    const removeNodes: Node[] = []
+    const removeNodeIds: string[] = []
+    let incomes = getIncomers(currentNode, nodes, edges)
+    while (incomes.length > 0) {
+      const firtIncome = incomes.shift()
+      removeNodes.push(firtIncome!)
+      removeNodeIds.push(firtIncome!.id)
+      const newIncomers = getIncomers(firtIncome!, nodes, edges)
+      if (newIncomers.length > 0) incomes = incomes.concat(newIncomers)
     }
-    if (tempEdges.length > 0) {
-      // eslint-disable-next-line
-      // @ts-ignore
-      setEdges((edges) => edges.filter((edge) => !tempEdges.includes(edge.id)))
-    }
+    const connectedEdges = getConnectedEdges(removeNodes, edges)
+    let remainingEdges = edges.filter((edge) => !connectedEdges.includes(edge))
+    let remainingNodes = nodes.filter(
+      (node) => !removeNodeIds.includes(node.id),
+    )
 
-    setTempNodes([])
-    setTempEdges([])
+    remainingNodes = remainingNodes.map((node) => {
+      if (node.id === currentNode.id) {
+        node.data = { ...node.data, isLeaf: true }
+      }
+      return node
+    })
 
     const route = routes[value]
     const reactants = route.reactants.split('.')
@@ -132,15 +137,12 @@ const ReactionList: React.FC<reactionsProps> = ({ routes, currentNode }) => {
     // eslint-disable-next-line
     // @ts-ignore
     newChemNodes.push(newReactionNode)
-    // eslint-disable-next-line
-    // @ts-ignore
-    setTempNodes(newChemNodes.map((node) => node.id))
-    // eslint-disable-next-line
-    // @ts-ignore
-    setTempEdges(newEdges.map((edge) => edge.id))
 
-    addNodes(newChemNodes)
-    addEdges(newEdges)
+    remainingEdges = remainingEdges.concat(newEdges)
+    remainingNodes = remainingNodes.concat(newChemNodes)
+
+    setEdges(remainingEdges)
+    setNodes(remainingNodes)
 
     function sleep(milliseconds: number) {
       return new Promise((resolve) => setTimeout(resolve, milliseconds))

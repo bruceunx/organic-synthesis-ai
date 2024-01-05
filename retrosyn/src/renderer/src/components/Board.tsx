@@ -19,8 +19,6 @@ function Board(): React.ReactNode {
   //eslint-disable-next-line
   const [selectCondition, setSelectCondition] = useState<any>({})
 
-  console.log(selectCondition)
-
   useEffect(() => {
     const _currentNode = window.localStorage.getItem('currentNode')
     if (_currentNode !== null) setCurrentNode(JSON.parse(_currentNode))

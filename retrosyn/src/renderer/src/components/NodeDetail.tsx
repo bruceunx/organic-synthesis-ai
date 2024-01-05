@@ -17,7 +17,6 @@ const NodeDetail: React.FC<NodeProps> = ({ currentNode, setRoutes }) => {
     const routes = await window.electronAPI.onFindRoutes(
       currentNode.data.smiles,
     )
-    console.log(routes)
     if (routes === null) {
       setError(true)
     } else {

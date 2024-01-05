@@ -8,12 +8,13 @@ import ReactFlow, {
   getIncomers,
   getConnectedEdges,
   getOutgoers,
+  useReactFlow,
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 
 import ReactionNode from './node/ReactionNode'
 import ChemNode from './node/ChemNode'
-import { useCallback, MouseEvent, useState } from 'react'
+import { useCallback, MouseEvent, useState, useEffect } from 'react'
 import { Button, Flex } from '@chakra-ui/react'
 
 const nodeTypes = {
@@ -37,8 +38,10 @@ type ChartProps = {
 const Chart: React.FC<ChartProps> = ({ handleSelect }: ChartProps) => {
   const [nodes, setNodes, onNodesChange] = useNodesState([])
   const [edges, setEdges, onEdgesChange] = useEdgesState([])
-  const [rfInstance, setRfInstance] = useState(null)
   const [delKey, setDelKey] = useState<string>('')
+  const [init, setInit] = useState<number>(0)
+
+  const refFlow = useReactFlow()
 
   const onNodeClick = useCallback(
     (_: MouseEvent, node: Node) => {
@@ -52,16 +55,43 @@ const Chart: React.FC<ChartProps> = ({ handleSelect }: ChartProps) => {
     [handleSelect, setDelKey],
   )
   const onSave = useCallback(async () => {
-    if (rfInstance) {
-      // @ts-ignore-next-line
-      const flow = rfInstance.toObject()
+    if (refFlow) {
+      const flow = refFlow.toObject()
       const content = JSON.stringify(flow) // content
       console.log(content)
-      // const target = analysis.getNodeLink().smiles; // get target smiles
-      // @ts-ignore-next-line
-      // const res = await saveRoute(session.accessToken, target, content);
     }
-  }, [rfInstance])
+  }, [refFlow])
+
+  useEffect(() => {
+    if (init !== 0) {
+      if (refFlow === null) return
+      window.localStorage.setItem(
+        'currentFlow',
+        JSON.stringify(refFlow.toObject()),
+      )
+    }
+  }, [nodes])
+
+  useEffect(() => {
+    const onRestore = (content: string) => {
+      const restoreFlow = async (content: string) => {
+        if (refFlow === null) return
+        const flow = JSON.parse(content)
+        if (flow) {
+          const { x = 0, y = 0, zoom = 1 } = flow.viewport
+          refFlow.setNodes(flow.nodes || [])
+          refFlow.setEdges(flow.edges || [])
+          refFlow.setViewport({ x, y, zoom })
+        }
+      }
+      restoreFlow(content)
+    }
+    const _currentFlow = window.localStorage.getItem('currentFlow')
+    if (_currentFlow !== null) {
+      onRestore(_currentFlow)
+      setInit(1)
+    }
+  }, [refFlow])
 
   const onNodesDelete = useCallback(
     // eslint-disable-next-line
@@ -115,7 +145,6 @@ const Chart: React.FC<ChartProps> = ({ handleSelect }: ChartProps) => {
         deleteKeyCode={delKey}
         proOptions={{ hideAttribution: true }}
         // @ts-ignore-next-line
-        onInit={setRfInstance}
         fitView
       >
         <Background gap={20} />
