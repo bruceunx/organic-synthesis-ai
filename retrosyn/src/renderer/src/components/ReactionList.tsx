@@ -39,7 +39,9 @@ const ReactionList: React.FC<reactionsProps> = ({ routes, currentNode }) => {
       const svgUrl = `data:image/svg+xml,${encodeURIComponent(svg)}`
 
       const _id = `chemNode_${currentNode.id}_${idx}_${value}`
-      if (idx % 2 === 1) idx *= -1
+      if (idx % 2 === 1) {idx = (idx + 1) / -2 } else{
+        idx = idx /2
+      }
       const offsetY = 100 * idx
       return {
         id: _id,

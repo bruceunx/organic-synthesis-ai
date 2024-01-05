@@ -5,6 +5,7 @@ import Chart from './Chart'
 import { Node } from 'reactflow'
 import ReactionList from './ReactionList'
 import ConditionList from './ConditionList'
+import NodeDetail from './NodeDetail'
 // import NodeDetail from "./NodeDetail";
 // import RouteDetail from "./RouteDetail";
 
@@ -85,7 +86,11 @@ function Board(): React.ReactNode {
           style={{ backgroundColor: 'var(--gray-a4)' }}
         >
           <Text align="center">{currentNode ? '当前目标' : '未选中目标'} </Text>
-          <Flex width="20%" height="100%" direction="column"></Flex>
+          <Flex width="80%" height="100%" direction="column">
+            {currentNode && currentNode.type === 'chemNode' && (
+              <NodeDetail setRoutes={setRoutes} currentNode={currentNode} />
+            )}
+          </Flex>
         </Flex>
       </Flex>
     </Flex>
