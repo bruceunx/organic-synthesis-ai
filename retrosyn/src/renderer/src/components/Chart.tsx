@@ -11,6 +11,7 @@ import ReactFlow, {
   useReactFlow,
 } from 'reactflow'
 import 'reactflow/dist/style.css'
+import '../style/flow.css'
 
 import ReactionNode from './node/ReactionNode'
 import ChemNode from './node/ChemNode'
