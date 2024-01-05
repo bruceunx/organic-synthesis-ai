@@ -89,13 +89,6 @@ const ReactionList: React.FC<reactionsProps> = ({ routes, currentNode }) => {
       (node) => !removeNodeIds.includes(node.id),
     )
 
-    remainingNodes = remainingNodes.map((node) => {
-      if (node.id === currentNode.id) {
-        node.data = { ...node.data, isLeaf: true }
-      }
-      return node
-    })
-
     const route = routes[value]
     const reactants = route.reactants.split('.')
 
