@@ -4,6 +4,8 @@ import { electronAPI } from '@electron-toolkit/preload'
 const api = {
   onFindRoutes: (smiles: string) =>
     ipcRenderer.invoke('routes:getRoutes', smiles),
+  onFindConditions: (reactants: string, product: string) =>
+    ipcRenderer.invoke('getConditions', reactants, product),
   onGetSvg: (smiles: string, width: number = 200, height: number = 200) =>
     ipcRenderer.invoke('svg', smiles, width, height),
   openFile: () => ipcRenderer.invoke('openFile'),

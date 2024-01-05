@@ -14,6 +14,7 @@ initRDKitModule().then((RDKit) => {
 })
 
 const API = 'http://127.0.0.1:8080'
+const CONDITION_API = 'http://127.0.0.1:8080'
 
 const handleFileOpen = async () => {
   // eslint-disable-next-line
@@ -25,6 +26,21 @@ const handleFileOpen = async () => {
   return ''
 }
 
+const findCondition = async (reactants: string, product: string) => {
+  const url = `${CONDITION_API}/get-conditions`
+  const data = { reactants: reactants, product: product }
+  try {
+    const res = await axios.post(url, data)
+    if (res.status === 200) {
+      return res.data[0]
+    } else {
+      return null
+    }
+  } catch (err) {
+    return null
+  }
+}
+
 const getSvg = (smiles: string, width: number = 200, height: number = 200) => {
   const mol = rdkit.get_mol(smiles)
   const svg: string = mol.get_svg(width, height)
@@ -34,11 +50,6 @@ const getSvg = (smiles: string, width: number = 200, height: number = 200) => {
 }
 
 const findRoutes = async (smiles: string) => {
-  //eslint-disable-next-line
-  // @ts-ignore
-  // const rdkit = await initRDKit()
-  const mol = rdkit.get_mol(smiles)
-  console.log(mol.get_svg())
   const url = `${API}/predictions/reaxys`
   const data = { smiles: [smiles] }
   try {
@@ -97,6 +108,10 @@ app.whenReady().then(() => {
 
   ipcMain.handle('routes:getRoutes', async (_, smiles) => {
     const res = await findRoutes(smiles)
+    return res
+  })
+  ipcMain.handle('getConditions', async (_, reactants, product) => {
+    const res = await findCondition(reactants, product)
     return res
   })
   ipcMain.handle(
