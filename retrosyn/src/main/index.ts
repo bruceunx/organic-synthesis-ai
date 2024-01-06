@@ -5,6 +5,8 @@ import icon from '../../resources/icon.png?asset'
 import axios from 'axios'
 import initRDKitModule from '@rdkit/rdkit'
 
+// import { db } from './db'
+
 let rdkit
 
 // eslint-disable-next-line
@@ -109,6 +111,16 @@ function createWindow(): void {
   }
 }
 
+// async function initDB() {
+//   await db.exec(`
+//     CREATE TABLE IF NOT EXISTS my_table (
+//       id INTEGER PRIMARY KEY AUTOINCREMENT,
+//       name TEXT NOT NULL,
+//       age INTEGER
+//     )
+//   `)
+// }
+
 app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
@@ -135,6 +147,7 @@ app.whenReady().then(() => {
   ipcMain.handle('openFile', handleFileOpen)
 
   createWindow()
+  // initDB()
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()

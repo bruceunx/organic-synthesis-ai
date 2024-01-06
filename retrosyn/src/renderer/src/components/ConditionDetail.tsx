@@ -13,7 +13,7 @@ const RouteDetail: React.FC<RouteProps> = ({
   const [reagent, setReagent] = useState<string | null>(null)
   const [solvent, setSolvent] = useState<string | null>(null)
   const [catalyst, setCatalyst] = useState<string | null>(null)
-  const [temperature, setTemperature] = useuseState<number | null>(null)
+  const [temperature, setTemperature] = useState<number | null>(null)
 
   const onClick = async () => {
     setError(false)

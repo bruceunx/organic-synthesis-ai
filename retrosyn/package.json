@@ -1,10 +1,10 @@
 {
-  "name": "eletron-socket",
+  "name": "AI retrosynthsis",
   "version": "1.0.0",
-  "description": "An electron application for socket communication",
+  "description": "An AI retrosynsis application for chemists",
   "main": "./out/main/index.js",
-  "author": "example.com",
-  "homepage": "https://www.electronjs.org",
+  "author": "bruceunx",
+  "homepage": "https://www.pylogic.net",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -37,9 +37,7 @@
     "lodash": "^4.17.21",
     "react-icons": "^4.12.0",
     "react-router-dom": "^6.21.0",
-    "reactflow": "^11.10.1",
-    "sqlite3": "^5.1.7",
-    "typeorm": "^0.3.19"
+    "reactflow": "^11.10.1"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "^1.0.1",
