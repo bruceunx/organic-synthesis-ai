@@ -59,9 +59,17 @@ const Chart: React.FC<ChartProps> = ({ handleSelect }: ChartProps) => {
     if (refFlow) {
       const flow = refFlow.toObject()
       const content = JSON.stringify(flow) // content
-      console.log(content)
+      const targetNode = nodes.filter((node) => node.data.isTarget === true)[0]
+      console.log(targetNode)
+
+      const res = await window.electronAPI.onSaveFlow(
+        targetNode.data.smiles,
+        content,
+      )
+
+      console.log(res)
     }
-  }, [refFlow])
+  }, [refFlow, nodes])
 
   useEffect(() => {
     if (init !== 0) {
@@ -90,8 +98,14 @@ const Chart: React.FC<ChartProps> = ({ handleSelect }: ChartProps) => {
     const _currentFlow = window.localStorage.getItem('currentFlow')
     if (_currentFlow !== null) {
       onRestore(_currentFlow)
-      setInit(1)
     }
+    const _initRecord = async (seconds: number) => {
+      if (init === 0) {
+        await new Promise((resolve) => setTimeout(resolve, seconds))
+        setInit(1)
+      }
+    }
+    _initRecord(1000)
   }, [refFlow])
 
   const onNodesDelete = useCallback(

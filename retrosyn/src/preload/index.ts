@@ -8,6 +8,8 @@ const api = {
     ipcRenderer.invoke('getConditions', reactants, product),
   onGetSvg: (smiles: string, width: number = 200, height: number = 200) =>
     ipcRenderer.invoke('svg', smiles, width, height),
+  onSaveFlow: (target: string, content: string) =>
+    ipcRenderer.invoke('saveFlow', target, content),
   openFile: () => ipcRenderer.invoke('openFile'),
 }
 

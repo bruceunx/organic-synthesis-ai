@@ -9,6 +9,7 @@ declare global {
       width: number = 200,
       height: numeber = 200,
     ) => string
+    onSaveFlow: (target: string, content: string) => any
     openFile: () => string
   }
 

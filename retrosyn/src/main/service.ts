@@ -2,13 +2,13 @@ import { Database } from 'better-sqlite3'
 
 export const saveFlow = async (
   db: Database,
-  content: string,
   target: string,
+  content: string,
 ) => {
   return new Promise((resolve, reject) => {
     try {
-      const stmt = db.prepare('INSERT INTO reaction VALUES (@target, @content)')
-      const result = stmt.run({ target, content })
+      const stmt = db.prepare('INSERT INTO reaction VALUES (?, ?)')
+      const result = stmt.run(target, content)
       resolve(result)
     } catch (err) {
       reject(err)
