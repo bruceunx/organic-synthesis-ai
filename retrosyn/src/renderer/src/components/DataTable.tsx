@@ -34,7 +34,7 @@ const DataTable: React.FC<dataProps> = ({ data, onDelete }) => {
             <Tr key={idx}>
               <Td>{entry.id}</Td>
               <Td>{entry.time_stamp}</Td>
-              <Td>
+              <Td color="blue.500">
                 <Link to={`/history/${entry.id}`}>{entry.target}</Link>
               </Td>
               <Td>
