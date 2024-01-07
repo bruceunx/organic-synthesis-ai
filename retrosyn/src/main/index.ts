@@ -4,48 +4,15 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import axios from 'axios'
 import initRDKitModule from '@rdkit/rdkit'
-import Database from 'better-sqlite3'
+import { Database } from 'better-sqlite3'
+import { initDB } from './model'
 
-function initDB() {
-  // Create the database connection
-  const db = new Database('test.db')
-
-  // Create table statement
-  const sql = `
-    CREATE TABLE IF NOT EXISTS reaction (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      time_stamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      target VARCHAR(255) NOT NULL,
-      content TEXT
-    )
-  `
-
-  const trigger = `
-    CREATE TRIGGER IF NOT EXISTS time_stamp_trigger
-    AFTER UPDATE ON reaction
-    FOR EACH ROW
-    BEGIN
-        UPDATE reaction
-        SET time_stamp = CURRENT_TIMESTAMP
-        WHERE id = NEW.id;
-    END
-  `
-
-  db.prepare(sql).run()
-  db.prepare(trigger).run()
-
-  const tableInfo = db.prepare('PRAGMA table_info(reaction)').all()
-  console.log(tableInfo) // Will contain table schema
-
-  // Close database connection
-  db.close()
-}
-
-let rdkit
+let db: Database
+let rdkit: any
 
 // eslint-disable-next-line
 // @ts-ignore
-initRDKitModule().then((RDKit) => {
+initRDKitModule().then((RDKit: any) => {
   rdkit = RDKit
 })
 
@@ -145,16 +112,6 @@ function createWindow(): void {
   }
 }
 
-// async function initDB() {
-//   await db.exec(`
-//     CREATE TABLE IF NOT EXISTS my_table (
-//       id INTEGER PRIMARY KEY AUTOINCREMENT,
-//       name TEXT NOT NULL,
-//       age INTEGER
-//     )
-//   `)
-// }
-
 app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
@@ -181,7 +138,7 @@ app.whenReady().then(() => {
   ipcMain.handle('openFile', handleFileOpen)
 
   createWindow()
-  initDB()
+  db = initDB()
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
@@ -190,6 +147,7 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', () => {
   // if (process.platform !== 'darwin') {
+  db.close()
   app.quit()
 
   // }
