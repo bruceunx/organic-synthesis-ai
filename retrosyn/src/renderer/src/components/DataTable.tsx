@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react'
 
 import { DataEntry } from '../types'
+import { Link } from 'react-router-dom'
 
 interface dataProps {
   data: DataEntry[]
@@ -33,7 +34,9 @@ const DataTable: React.FC<dataProps> = ({ data, onDelete }) => {
             <Tr key={idx}>
               <Td>{entry.id}</Td>
               <Td>{entry.time_stamp}</Td>
-              <Td>{entry.target}</Td>
+              <Td>
+                <Link to={`/history/${entry.id}`}>{entry.target}</Link>
+              </Td>
               <Td>
                 <Button
                   onClick={() => onDelete(entry.id)}

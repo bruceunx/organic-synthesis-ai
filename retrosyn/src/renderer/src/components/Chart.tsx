@@ -16,7 +16,7 @@ import '../style/flow.css'
 import ReactionNode from './node/ReactionNode'
 import ChemNode from './node/ChemNode'
 import { useCallback, MouseEvent, useState, useEffect } from 'react'
-import { Button, Flex } from '@chakra-ui/react'
+import { Button, Flex, useToast } from '@chakra-ui/react'
 
 const nodeTypes = {
   chemNode: ChemNode,
@@ -34,15 +34,17 @@ const defaultEdgeOptions = {
 
 type ChartProps = {
   handleSelect: (node: Node | null) => void
+  content: string | null
 }
 
-const Chart: React.FC<ChartProps> = ({ handleSelect }: ChartProps) => {
+const Chart: React.FC<ChartProps> = ({ handleSelect, content }: ChartProps) => {
   const [nodes, setNodes, onNodesChange] = useNodesState([])
   const [edges, setEdges, onEdgesChange] = useEdgesState([])
   const [delKey, setDelKey] = useState<string>('')
   const [init, setInit] = useState<number>(0)
 
   const refFlow = useReactFlow()
+  const toast = useToast()
 
   const onNodeClick = useCallback(
     (_: MouseEvent, node: Node) => {
@@ -60,14 +62,19 @@ const Chart: React.FC<ChartProps> = ({ handleSelect }: ChartProps) => {
       const flow = refFlow.toObject()
       const content = JSON.stringify(flow) // content
       const targetNode = nodes.filter((node) => node.data.isTarget === true)[0]
-      console.log(targetNode)
 
       const res = await window.electronAPI.onSaveFlow(
         targetNode.data.smiles,
         content,
       )
-
-      console.log(res)
+      if (res.changes === 1)
+        toast({
+          position: 'top-right',
+          description: '数据保存成功!',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
     }
   }, [refFlow, nodes])
 
@@ -95,14 +102,18 @@ const Chart: React.FC<ChartProps> = ({ handleSelect }: ChartProps) => {
       }
       restoreFlow(content)
     }
-    const _currentFlow = window.localStorage.getItem('currentFlow')
-    if (_currentFlow !== null) {
-      onRestore(_currentFlow)
-    }
     const _initRecord = async (seconds: number) => {
       if (init === 0) {
         await new Promise((resolve) => setTimeout(resolve, seconds))
         setInit(1)
+      }
+    }
+    if (content !== null) {
+      onRestore(content)
+    } else {
+      const _currentFlow = window.localStorage.getItem('currentFlow')
+      if (_currentFlow !== null) {
+        onRestore(_currentFlow)
       }
     }
     _initRecord(1000)

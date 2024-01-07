@@ -4,7 +4,7 @@ import { ReactFlowProvider } from 'reactflow'
 const HomePage: React.FC = () => {
   return (
     <ReactFlowProvider>
-      <Board />
+      <Board content={null} />
     </ReactFlowProvider>
   )
 }

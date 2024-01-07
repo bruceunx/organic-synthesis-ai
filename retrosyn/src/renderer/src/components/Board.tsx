@@ -7,10 +7,8 @@ import ReactionList from './ReactionList'
 import ConditionList from './ConditionList'
 import NodeDetail from './NodeDetail'
 import RouteDetail from './ConditionDetail'
-// import NodeDetail from "./NodeDetail";
-// import RouteDetail from "./RouteDetail";
 
-function Board(): React.ReactNode {
+function Board({ content }: { content: string | null }): React.ReactNode {
   const [currentNode, setCurrentNode] = useState<Node | null>(null)
 
   const [routes, setRoutes] = useState([])
@@ -20,12 +18,14 @@ function Board(): React.ReactNode {
   const [selectCondition, setSelectCondition] = useState<any>({})
 
   useEffect(() => {
-    const _currentNode = window.localStorage.getItem('currentNode')
-    if (_currentNode !== null) setCurrentNode(JSON.parse(_currentNode))
-    const _routes = window.localStorage.getItem('routes')
-    if (_routes !== null) setRoutes(JSON.parse(_routes))
-    const _conditions = window.localStorage.getItem('conditions')
-    if (_conditions !== null) setConditions(JSON.parse(_conditions))
+    if (content === null) {
+      const _currentNode = window.localStorage.getItem('currentNode')
+      if (_currentNode !== null) setCurrentNode(JSON.parse(_currentNode))
+      const _routes = window.localStorage.getItem('routes')
+      if (_routes !== null) setRoutes(JSON.parse(_routes))
+      const _conditions = window.localStorage.getItem('conditions')
+      if (_conditions !== null) setConditions(JSON.parse(_conditions))
+    }
   }, [])
 
   useEffect(() => {
@@ -55,7 +55,7 @@ function Board(): React.ReactNode {
         setCurrentNode={setCurrentNode}
       />
       <Flex width="100%" height="40%">
-        <Chart handleSelect={handleSelect} />
+        <Chart handleSelect={handleSelect} content={content} />
       </Flex>
       <Flex height="60%" width="100%" direction="row">
         <Flex
