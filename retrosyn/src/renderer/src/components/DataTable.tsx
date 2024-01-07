@@ -6,15 +6,17 @@ import {
   Th,
   Td,
   TableContainer,
+  Button,
 } from '@chakra-ui/react'
 
 import { DataEntry } from '../types'
 
 interface dataProps {
   data: DataEntry[]
+  onDelete: (id: number) => void
 }
 
-const DataTable: React.FC<dataProps> = ({ data }) => {
+const DataTable: React.FC<dataProps> = ({ data, onDelete }) => {
   return (
     <TableContainer height="90%" width="70%" py={5}>
       <Table variant="simple">
@@ -32,7 +34,16 @@ const DataTable: React.FC<dataProps> = ({ data }) => {
               <Td>{entry.id}</Td>
               <Td>{entry.time_stamp}</Td>
               <Td>{entry.target}</Td>
-              <Td>删除</Td>
+              <Td>
+                <Button
+                  onClick={() => onDelete(entry.id)}
+                  color="white"
+                  bgColor="red.400"
+                  _hover={{ bgColor: 'red.700' }}
+                >
+                  删除
+                </Button>
+              </Td>
             </Tr>
           ))}
         </Tbody>

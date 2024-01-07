@@ -18,7 +18,7 @@ export const saveFlow = async (
   })
 }
 
-export const updateFlow = async (db: Database, content: string, id: number) => {
+export const updateFlow = async (db: Database, id: number, content: string) => {
   return new Promise((resolve, reject) => {
     try {
       const stmt = db.prepare(
