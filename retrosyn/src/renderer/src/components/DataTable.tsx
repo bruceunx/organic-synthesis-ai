@@ -19,7 +19,7 @@ interface dataProps {
 
 const DataTable: React.FC<dataProps> = ({ data, onDelete }) => {
   return (
-    <TableContainer height="90%" width="70%" py={5}>
+    <TableContainer height="95%" width="70%" my={5} overflowY="scroll">
       <Table variant="simple">
         <Thead>
           <Tr>

@@ -10,9 +10,6 @@ interface leftbarOpts {
 
 const LeftBar: React.FC<leftbarOpts> = ({ toggle }) => {
   const location = useLocation()
-  const onClick: () => void = () => {
-    console.log('click')
-  }
 
   return (
     <Box
@@ -42,7 +39,6 @@ const LeftBar: React.FC<leftbarOpts> = ({ toggle }) => {
               bgColor: 'gray.600',
               cursor: 'pointer',
             }}
-            onClick={onClick}
             bgColor={`${location.pathname === '/' ? 'blue.500' : ''}`}
           >
             <Icon as={MdMonitor} boxSize={50} p={2} />
@@ -55,7 +51,6 @@ const LeftBar: React.FC<leftbarOpts> = ({ toggle }) => {
               bgColor: 'gray.600',
               cursor: 'pointer',
             }}
-            onClick={onClick}
             bgColor={`${location.pathname === '/history' ? 'blue.500' : ''}`}
           >
             <Icon as={MdSearch} boxSize={50} borderRadius="lg" p={2} />
@@ -68,7 +63,6 @@ const LeftBar: React.FC<leftbarOpts> = ({ toggle }) => {
               bgColor: 'gray.600',
               cursor: 'pointer',
             }}
-            onClick={onClick}
             bgColor={`${location.pathname === '/helper' ? 'blue.500' : ''}`}
           >
             <Icon as={MdSettings} boxSize={50} borderRadius="lg" p={2} />

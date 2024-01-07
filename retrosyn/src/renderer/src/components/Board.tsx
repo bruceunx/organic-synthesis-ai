@@ -49,12 +49,13 @@ function Board({ id }: { id: number | null }): React.ReactNode {
 
   return (
     <Flex direction="column" width="100%" height="100%" align="center">
-      {id === null &&
-      <Search
-        setRoutes={setRoutes}
-        setConditions={setConditions}
-        setCurrentNode={setCurrentNode}
-      />}
+      {id === null && (
+        <Search
+          setRoutes={setRoutes}
+          setConditions={setConditions}
+          setCurrentNode={setCurrentNode}
+        />
+      )}
       <Flex width="100%" height="40%">
         <Chart handleSelect={handleSelect} id={id} />
       </Flex>

@@ -14,7 +14,6 @@ const HistoryPage: React.FC = () => {
   useEffect(() => {
     const init = async () => {
       const res = await window.electronAPI.onGetFlowList()
-      console.log(res)
       setData(res)
     }
     init()
