@@ -34,6 +34,7 @@ const NodeDetail: React.FC<NodeProps> = ({ currentNode, setRoutes }) => {
 
   return (
     <Flex direction="column" align="center" gap="4">
+      <Text>SMILES: {currentNode.data.smiles}</Text>
       <Image
         src={currentNode.data.imgUrl}
         alt="currentNode"
