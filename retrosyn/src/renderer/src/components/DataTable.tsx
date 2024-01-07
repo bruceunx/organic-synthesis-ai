@@ -1,16 +1,7 @@
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Button,
-} from '@chakra-ui/react'
+import { Table, Thead, Tbody, Tr, Th, TableContainer } from '@chakra-ui/react'
 
 import { DataEntry } from '../types'
-import { Link } from 'react-router-dom'
+import SingleEntry from './SingleEntry'
 
 interface dataProps {
   data: DataEntry[]
@@ -31,23 +22,7 @@ const DataTable: React.FC<dataProps> = ({ data, onDelete }) => {
         </Thead>
         <Tbody>
           {data.map((entry, idx) => (
-            <Tr key={idx}>
-              <Td>{entry.id}</Td>
-              <Td>{entry.time_stamp}</Td>
-              <Td color="blue.500">
-                <Link to={`/history/${entry.id}`}>{entry.target}</Link>
-              </Td>
-              <Td>
-                <Button
-                  onClick={() => onDelete(entry.id)}
-                  color="white"
-                  bgColor="red.400"
-                  _hover={{ bgColor: 'red.700' }}
-                >
-                  删除
-                </Button>
-              </Td>
-            </Tr>
+            <SingleEntry entry={entry} onDelete={onDelete} key={idx} />
           ))}
         </Tbody>
       </Table>
