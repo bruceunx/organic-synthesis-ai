@@ -8,7 +8,7 @@ import ConditionList from './ConditionList'
 import NodeDetail from './NodeDetail'
 import RouteDetail from './ConditionDetail'
 
-function Board({ content }: { content: string | null }): React.ReactNode {
+function Board({ id }: { id: number | null }): React.ReactNode {
   const [currentNode, setCurrentNode] = useState<Node | null>(null)
 
   const [routes, setRoutes] = useState([])
@@ -18,7 +18,7 @@ function Board({ content }: { content: string | null }): React.ReactNode {
   const [selectCondition, setSelectCondition] = useState<any>({})
 
   useEffect(() => {
-    if (content === null) {
+    if (id === null) {
       const _currentNode = window.localStorage.getItem('currentNode')
       if (_currentNode !== null) setCurrentNode(JSON.parse(_currentNode))
       const _routes = window.localStorage.getItem('routes')
@@ -49,13 +49,14 @@ function Board({ content }: { content: string | null }): React.ReactNode {
 
   return (
     <Flex direction="column" width="100%" height="100%" align="center">
+      {id === null &&
       <Search
         setRoutes={setRoutes}
         setConditions={setConditions}
         setCurrentNode={setCurrentNode}
-      />
+      />}
       <Flex width="100%" height="40%">
-        <Chart handleSelect={handleSelect} content={content} />
+        <Chart handleSelect={handleSelect} id={id} />
       </Flex>
       <Flex height="60%" width="100%" direction="row">
         <Flex

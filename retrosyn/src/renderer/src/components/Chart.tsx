@@ -34,10 +34,10 @@ const defaultEdgeOptions = {
 
 type ChartProps = {
   handleSelect: (node: Node | null) => void
-  content: string | null
+  id: number | null
 }
 
-const Chart: React.FC<ChartProps> = ({ handleSelect, content }: ChartProps) => {
+const Chart: React.FC<ChartProps> = ({ handleSelect, id }: ChartProps) => {
   const [nodes, setNodes, onNodesChange] = useNodesState([])
   const [edges, setEdges, onEdgesChange] = useEdgesState([])
   const [delKey, setDelKey] = useState<string>('')
@@ -62,11 +62,15 @@ const Chart: React.FC<ChartProps> = ({ handleSelect, content }: ChartProps) => {
       const flow = refFlow.toObject()
       const content = JSON.stringify(flow) // content
       const targetNode = nodes.filter((node) => node.data.isTarget === true)[0]
-
-      const res = await window.electronAPI.onSaveFlow(
-        targetNode.data.smiles,
-        content,
-      )
+      let res: any
+      if (id === null) {
+        res = await window.electronAPI.onSaveFlow(
+          targetNode.data.smiles,
+          content,
+        )
+      } else {
+        res = await window.electronAPI.onUpdateFlow(id, content)
+      }
       if (res.changes === 1)
         toast({
           position: 'top-right',
@@ -108,8 +112,12 @@ const Chart: React.FC<ChartProps> = ({ handleSelect, content }: ChartProps) => {
         setInit(1)
       }
     }
-    if (content !== null) {
-      onRestore(content)
+    const getContent = async (id: number) => {
+      const reaction = await window.electronAPI.onGetFlow(id)
+      onRestore(reaction.content)
+    }
+    if (id !== null) {
+      getContent(id)
     } else {
       const _currentFlow = window.localStorage.getItem('currentFlow')
       if (_currentFlow !== null) {

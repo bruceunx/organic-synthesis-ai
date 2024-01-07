@@ -5,21 +5,13 @@ import { ReactFlowProvider } from 'reactflow'
 
 const SingleHistoryEntry: React.FC = () => {
   const params = useParams()
-  const [content, setContent] = useState<string | null>(null)
+  const [id, setId] = useState<number | null>(null)
 
   useEffect(() => {
-    const getContent = async (id: number) => {
-      const _content = await window.electronAPI.onGetFlow(id)
-      setContent(_content)
-    }
-    if (params.id !== undefined) getContent(Number.parseInt(params.id))
+    if (params.id !== undefined) setId(Number.parseInt(params.id))
   }, [params])
 
-  return (
-    <ReactFlowProvider>
-      <Board content={content} />
-    </ReactFlowProvider>
-  )
+  return <ReactFlowProvider>{id && <Board id={id} />}</ReactFlowProvider>
 }
 
 export default SingleHistoryEntry
