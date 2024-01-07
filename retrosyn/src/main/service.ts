@@ -1,35 +1,67 @@
-export const saveFlow = async (content: string) => {
-  return new Promise((resolve) => {
-    // if save to db success
-    resolve(content)
+import { Database } from 'better-sqlite3'
+
+export const saveFlow = async (
+  db: Database,
+  content: string,
+  target: string,
+) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const stmt = db.prepare('INSERT INTO reaction VALUES (@target, @content)')
+      const result = stmt.run({ target, content })
+      resolve(result)
+    } catch (err) {
+      reject(err)
+    }
   })
 }
 
-export const updateFlow = async (content: string, id: number) => {
-  return new Promise((resolve) => {
-    // if save to db success
-    console.log(id)
-    resolve(content)
+export const updateFlow = async (db: Database, content: string, id: number) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const stmt = db.prepare(
+        'UPDATE reaction SET content = @content WHERE id = @id',
+      )
+      const result = stmt.run({ content, id })
+      resolve(result)
+    } catch (err) {
+      reject(err)
+    }
   })
 }
 
-export const getFlowList = async () => {
-  return new Promise((resolve) => {
-    // get all flow
-    resolve('Ok')
+export const getFlowList = async (db: Database) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const stmt = db.prepare('SELECT * FROM reaction')
+      const result = stmt.all()
+      resolve(result)
+    } catch (err) {
+      reject(err)
+    }
   })
 }
 
-export const getFlow = async (id: number) => {
-  return new Promise((resolve) => {
-    // get flow with id
-    resolve(id)
+export const getFlow = async (db: Database, id: number) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const stmt = db.prepare('SELECT * FROM reaction where id = ?')
+      const result = stmt.get(id)
+      resolve(result)
+    } catch (err) {
+      reject(err)
+    }
   })
 }
 
-export const delFlow = async (id: number) => {
-  return new Promise((resolve) => {
-    // del flow with id
-    resolve(id)
+export const delFlow = async (db: Database, id: number) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const stmt = db.prepare('DELETE FROM reaction WHERE id = ?')
+      const result = stmt.run(id)
+      resolve(result)
+    } catch (err) {
+      reject(err)
+    }
   })
 }
