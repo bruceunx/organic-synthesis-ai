@@ -10,6 +10,7 @@ const api = {
     ipcRenderer.invoke('svg', smiles, width, height),
   onSaveFlow: (target: string, content: string) =>
     ipcRenderer.invoke('saveFlow', target, content),
+  onGetFlowList: () => ipcRenderer.invoke('getFlowList'),
   openFile: () => ipcRenderer.invoke('openFile'),
 }
 

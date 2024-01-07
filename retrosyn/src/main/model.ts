@@ -25,6 +25,9 @@ export function initDB(): Database.Database {
   db.prepare(sql).run()
   db.prepare(trigger).run()
 
+  // improve performance
+  db.pragma('journal_mode = WAL')
+
   // const tableInfo = db.prepare('PRAGMA table_info(reaction)').all()
   return db
 }

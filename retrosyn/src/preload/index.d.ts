@@ -10,6 +10,7 @@ declare global {
       height: numeber = 200,
     ) => string
     onSaveFlow: (target: string, content: string) => any
+    onGetFlowList: () => any
     openFile: () => string
   }
 

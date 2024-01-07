@@ -6,7 +6,7 @@ import axios from 'axios'
 import initRDKitModule from '@rdkit/rdkit'
 import { Database } from 'better-sqlite3'
 import { initDB } from './model'
-import { saveFlow } from './service'
+import { getFlowList, saveFlow } from './service'
 
 let db: Database
 let rdkit: any
@@ -139,6 +139,11 @@ app.whenReady().then(() => {
 
   ipcMain.handle('saveFlow', async (_, target: string, content: string) => {
     const res = await saveFlow(db, target, content)
+    return res
+  })
+
+  ipcMain.handle('getFlowList', async () => {
+    const res = await getFlowList(db)
     return res
   })
 

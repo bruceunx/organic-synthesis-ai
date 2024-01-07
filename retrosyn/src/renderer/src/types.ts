@@ -33,3 +33,10 @@ export type RouteProps = {
   setConditions: Dispatch<SetStateAction<never[]>>
   selectCondition: condition
 }
+
+export interface DataEntry {
+  id: number
+  time_stamp: string
+  target: string
+  content: string
+}

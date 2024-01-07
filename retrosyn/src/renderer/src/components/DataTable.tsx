@@ -8,7 +8,13 @@ import {
   TableContainer,
 } from '@chakra-ui/react'
 
-const SampleTable: React.FC = () => {
+import { DataEntry } from '../types'
+
+interface dataProps {
+  data: DataEntry[]
+}
+
+const DataTable: React.FC<dataProps> = ({ data }) => {
   return (
     <TableContainer height="90%" width="70%" py={5}>
       <Table variant="simple">
@@ -21,27 +27,17 @@ const SampleTable: React.FC = () => {
           </Tr>
         </Thead>
         <Tbody>
-          <Tr>
-            <Td>1</Td>
-            <Td>2022-12-21</Td>
-            <Td>CCC</Td>
-            <Td>删除</Td>
-          </Tr>
-          <Tr>
-            <Td>2</Td>
-            <Td>2022-12-21</Td>
-            <Td>CCCC</Td>
-            <Td>删除</Td>
-          </Tr>
-          <Tr>
-            <Td>3</Td>
-            <Td>2022-12-21</Td>
-            <Td>CCCC</Td>
-            <Td>删除</Td>
-          </Tr>
+          {data.map((entry, idx) => (
+            <Tr key={idx}>
+              <Td>{entry.id}</Td>
+              <Td>{entry.time_stamp}</Td>
+              <Td>{entry.target}</Td>
+              <Td>删除</Td>
+            </Tr>
+          ))}
         </Tbody>
       </Table>
     </TableContainer>
   )
 }
-export default SampleTable
+export default DataTable

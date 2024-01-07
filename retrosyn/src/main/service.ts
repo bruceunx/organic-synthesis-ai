@@ -7,8 +7,10 @@ export const saveFlow = async (
 ) => {
   return new Promise((resolve, reject) => {
     try {
-      const stmt = db.prepare('INSERT INTO reaction VALUES (?, ?)')
-      const result = stmt.run(target, content)
+      const stmt = db.prepare(
+        'INSERT INTO reaction(target, content) VALUES (@target, @content)',
+      )
+      const result = stmt.run({ target, content })
       resolve(result)
     } catch (err) {
       reject(err)
