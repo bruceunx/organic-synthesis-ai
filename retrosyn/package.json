@@ -1,5 +1,5 @@
 {
-  "name": "AI retrosynthsis",
+  "name": "AIChemist",
   "version": "1.0.0",
   "description": "An AI retrosynsis application for chemists",
   "main": "./out/main/index.js",

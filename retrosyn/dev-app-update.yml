@@ -1,3 +1,3 @@
 provider: generic
-url: https://pylogic.net/auto-updates
-updaterCacheDirName: eletron-socket-updater
+url: https://aichem.pylogic.net/auto-updates
+updaterCacheDirName: aichemist-updater
