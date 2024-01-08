@@ -1,0 +1,6 @@
+/**/logs/
+/**/__pycache__/
+/**/*.py[cdo]
+/**/*.so
+mars/
+/**/.DS_Store
