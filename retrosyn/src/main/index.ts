@@ -17,8 +17,8 @@ initRDKitModule().then((RDKit: any) => {
   rdkit = RDKit
 })
 
-const API = 'http://127.0.0.1:8080'
-const CONDITION_API = 'http://127.0.0.1:8000'
+const API = 'http://127.0.0.1:6001'
+const CONDITION_API = 'http://127.0.0.1:6006'
 
 const handleFileOpen = async () => {
   // eslint-disable-next-line
