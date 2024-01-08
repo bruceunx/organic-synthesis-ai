@@ -53,8 +53,8 @@ const Condition: React.FC<conditionProps> = ({ condition, idx }) => {
           <Image
             src={reagent}
             alt="reagent"
-            htmlWidth={200}
-            htmlHeight={200}
+            htmlWidth={100}
+            htmlHeight={100}
             bgColor="blue.200"
             borderRadius={12}
           />
@@ -65,8 +65,8 @@ const Condition: React.FC<conditionProps> = ({ condition, idx }) => {
           <Image
             src={solvent}
             alt="solvent"
-            htmlWidth={200}
-            htmlHeight={200}
+            htmlWidth={100}
+            htmlHeight={100}
             bgColor="gray.200"
             borderRadius={12}
           />
@@ -77,8 +77,8 @@ const Condition: React.FC<conditionProps> = ({ condition, idx }) => {
           <Image
             src={catalyst}
             alt="catalyst"
-            htmlWidth={200}
-            htmlHeight={200}
+            htmlWidth={100}
+            htmlHeight={100}
             bgColor="green.200"
             borderRadius={12}
           />
