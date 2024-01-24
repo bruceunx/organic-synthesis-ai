@@ -40,3 +40,9 @@ export interface DataEntry {
   target: string
   content: string
 }
+
+export interface DataItem {
+  id: number
+  time_stamp: string
+  target: string
+}

@@ -1,16 +1,16 @@
 import { Table, Thead, Tbody, Tr, Th, TableContainer } from '@chakra-ui/react'
 
-import { DataEntry } from '../types'
+import { DataItem } from '../types'
 import SingleEntry from './SingleEntry'
 
 interface dataProps {
-  data: DataEntry[]
+  data: DataItem[]
   onDelete: (id: number) => void
 }
 
 const DataTable: React.FC<dataProps> = ({ data, onDelete }) => {
   return (
-    <TableContainer height="95%" width="70%" my={5} overflowY="scroll">
+    <TableContainer height="90%" width="70%" my={5}>
       <Table variant="simple">
         <Thead>
           <Tr>
