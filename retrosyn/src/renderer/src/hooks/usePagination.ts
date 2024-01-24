@@ -1,5 +1,5 @@
 import { DataItem } from '@renderer/types'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const usePagination = (
   initData: DataItem[],
@@ -9,16 +9,23 @@ const usePagination = (
   const [currentPage, setCurrentPage] = useState<number>(initPage)
   const [data, setData] = useState<DataItem[]>(initData)
 
-  const totalPages = Math.ceil(data.length / itemsPerPage)
+  useEffect(() => {
+    const init = async () => {
+      const res = await window.electronAPI.onGetFlowList()
+      setData(res)
+    }
+    init()
+  }, [])
 
-  const visibleData = data.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage,
-  )
-
-  const updateData = (newData: DataItem[], newPage = 1) => {
+  const updateData = (id: number, newPage = 1) => {
+    const newData = data.filter((d) => d.id !== id)
     setData(newData)
-    setCurrentPage(newPage)
+    const upPages = Math.ceil(newData.length / itemsPerPage)
+    if (newPage > upPages) {
+      setCurrentPage(upPages)
+    } else {
+      setCurrentPage(newPage)
+    }
   }
 
   const firstPage = () => {
@@ -37,6 +44,13 @@ const usePagination = (
     if (currentPage > 1) setCurrentPage(currentPage - 1)
   }
 
+  const totalPages = Math.ceil(data.length / itemsPerPage)
+
+  const visibleData = data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  )
+
   return {
     currentPage,
     totalPages,
@@ -46,7 +60,6 @@ const usePagination = (
     firstPage,
     lastPage,
     updateData,
-    data,
   }
 }
 

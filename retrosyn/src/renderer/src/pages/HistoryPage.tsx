@@ -1,6 +1,5 @@
 import { Button, Flex, Text } from '@chakra-ui/react'
 import DataTable from '@renderer/components/DataTable'
-import { useEffect } from 'react'
 import usePagination from '@renderer/hooks/usePagination'
 
 const HistoryPage: React.FC = () => {
@@ -13,26 +12,13 @@ const HistoryPage: React.FC = () => {
     firstPage,
     lastPage,
     updateData,
-    data,
   } = usePagination([])
 
   const onDelete = async (id: number) => {
     const res = await window.electronAPI.onDelFlow(id)
-    if (res.changes === 1)
-      updateData(
-        data.filter((d) => d.id !== id),
-        currentPage,
-      )
+    if (res.changes === 1) updateData(id, currentPage)
   }
 
-  useEffect(() => {
-    const init = async () => {
-      const res = await window.electronAPI.onGetFlowList()
-      updateData(res)
-    }
-    init()
-  }, [])
-  // add pagination to Table
   return (
     <Flex direction="column" width="100%" height="100%" align="center">
       <DataTable data={visibleData} onDelete={onDelete} />

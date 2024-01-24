@@ -62,14 +62,12 @@ const Chart: React.FC<ChartProps> = ({ handleSelect, id }: ChartProps) => {
       const flow = refFlow.toObject()
       const content = JSON.stringify(flow) // content
       const targetNode = nodes.filter((node) => node.data.isTarget === true)[0]
-      console.log(targetNode, id)
       let res: any
       if (id === null) {
         res = await window.electronAPI.onSaveFlow(
           targetNode.data.smiles,
           content,
         )
-        console.log(res)
       } else {
         res = await window.electronAPI.onUpdateFlow(id, content)
       }
