@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from '@chakra-ui/react'
+import { Button, Flex, Text, Select, HStack } from '@chakra-ui/react'
 import DataTable from '@renderer/components/DataTable'
 import usePagination from '@renderer/hooks/usePagination'
 
@@ -12,11 +12,16 @@ const HistoryPage: React.FC = () => {
     firstPage,
     lastPage,
     updateData,
+    updateNumberPage,
   } = usePagination([])
 
   const onDelete = async (id: number) => {
     const res = await window.electronAPI.onDelFlow(id)
     if (res.changes === 1) updateData(id, currentPage)
+  }
+
+  const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    updateNumberPage(parseInt(e.target.value))
   }
 
   return (
@@ -30,6 +35,15 @@ const HistoryPage: React.FC = () => {
         </Text>
         <Button onClick={nextPage}>下一页</Button>
         <Button onClick={lastPage}>末页</Button>
+        <HStack>
+          <Text width={16}>每页数量</Text>
+          <Select width={20} onChange={onChange}>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </Select>
+        </HStack>
       </Flex>
     </Flex>
   )
