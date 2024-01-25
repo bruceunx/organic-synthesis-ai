@@ -1,51 +1,24 @@
-import { useEffect, useState } from 'react'
 import { Flex, Text } from '@chakra-ui/react'
 import Search from './Search'
 import Chart from './Chart'
-import { Node } from 'reactflow'
 import ReactionList from './ReactionList'
 import ConditionList from './ConditionList'
 import NodeDetail from './NodeDetail'
 import RouteDetail from './ConditionDetail'
+import useBoard from '@renderer/hooks/useBoard'
 
 function Board({ id }: { id: number | null }): React.ReactNode {
-  const [currentNode, setCurrentNode] = useState<Node | null>(null)
-
-  const [routes, setRoutes] = useState([])
-  const [conditions, setConditions] = useState([])
-
-  //eslint-disable-next-line
-  const [selectCondition, setSelectCondition] = useState<any>({})
-
-  useEffect(() => {
-    if (id === null) {
-      const _currentNode = window.localStorage.getItem('currentNode')
-      if (_currentNode !== null) setCurrentNode(JSON.parse(_currentNode))
-      const _routes = window.localStorage.getItem('routes')
-      if (_routes !== null) setRoutes(JSON.parse(_routes))
-      const _conditions = window.localStorage.getItem('conditions')
-      if (_conditions !== null) setConditions(JSON.parse(_conditions))
-    }
-  }, [])
-
-  useEffect(() => {
-    window.localStorage.setItem('routes', JSON.stringify(routes))
-  }, [routes])
-
-  useEffect(() => {
-    window.localStorage.setItem('conditions', JSON.stringify(conditions))
-  }, [conditions])
-
-  useEffect(() => {
-    window.localStorage.setItem('currentNode', JSON.stringify(currentNode))
-  }, [currentNode])
-
-  const handleSelect: (s: Node | null) => void = (node: Node | null) => {
-    setRoutes([])
-    setConditions([])
-    setSelectCondition({})
-    setCurrentNode(node)
-  }
+  const {
+    routes,
+    conditions,
+    currentNode,
+    selectCondition,
+    handleSelect,
+    setRoutes,
+    setConditions,
+    setCurrentNode,
+    setSelectCondition,
+  } = useBoard(id)
 
   return (
     <Flex direction="column" width="100%" height="100%" align="center">
