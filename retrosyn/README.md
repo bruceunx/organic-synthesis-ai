@@ -32,7 +32,7 @@ This desktop application, built with **Electron** and **ReactJS**, is your intel
 
 ```bash
 git clone  https://github.com/bruceunx/organic-synthesis-ai
-cd organic-synthesis-ai
+cd organic-synthesis-ai/retrosyn
 ```
 
 2. **Then install the dependencies**:
