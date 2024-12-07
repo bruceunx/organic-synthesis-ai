@@ -1,10 +1,10 @@
 import { Button, Image, Td, Tr } from '@chakra-ui/react'
-import { DataEntry } from '@renderer/types'
+import { DataItem } from '@renderer/types'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 interface props {
-  entry: DataEntry
+  entry: DataItem
   onDelete: (id: number) => void
 }
 
@@ -14,14 +14,13 @@ const SingleEntry: React.FC<props> = ({ onDelete, entry }) => {
   useEffect(() => {
     const initImg = async (smiles: string) => {
       const res = await window.electronAPI.onGetSvg(smiles)
-
       if (res !== null) {
         const svgUrl = `data:image/svg+xml,${encodeURIComponent(res)}`
         setImg(svgUrl)
       }
     }
     initImg(entry.target)
-  }, [])
+  }, [entry])
 
   return (
     <Tr>
@@ -37,6 +36,7 @@ const SingleEntry: React.FC<props> = ({ onDelete, entry }) => {
               htmlHeight={70}
               bgColor="gray.200"
               borderRadius={12}
+              _hover={{ bgColor: 'yellow.200' }}
             />
           )}
         </Link>

@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "retrosyn-desktop"
+version = "0.1.0"
+description = "AI Chemist DeskTop App"
+authors = ["Bruce Hu <bruceunx@outlook.com>"]
+license = "GLP"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+torch = "^2.2.0"
+torchvision = "^0.17.0"
+torchaudio = "^2.2.0"
+scipy = "^1.12.0"
+numpy = "^1.26.3"
+rdkit = "^2023.9.4"
+onnxruntime = "^1.17.0"
+pyyaml = "^6.0.1"
+rdchiral = "^1.1.0"
+torchserve = "^0.9.0"
+fastapi = "^0.109.2"
+uvicorn = "^0.27.0.post1"
+pandas = "^2.2.0"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.2.0"
+mypy = "^1.8.0"
+flake8 = "^7.0.0"
+yapf = "^0.40.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

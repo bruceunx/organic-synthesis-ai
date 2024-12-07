@@ -35,7 +35,7 @@ export const updateFlow = async (db: Database, id: number, content: string) => {
 export const getFlowList = async (db: Database) => {
   return new Promise((resolve, reject) => {
     try {
-      const stmt = db.prepare('SELECT * FROM reaction')
+      const stmt = db.prepare('SELECT id, time_stamp,target FROM reaction')
       const result = stmt.all()
       resolve(result)
     } catch (err) {

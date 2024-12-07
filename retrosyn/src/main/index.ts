@@ -7,8 +7,8 @@ import initRDKitModule from '@rdkit/rdkit'
 import { Database } from 'better-sqlite3'
 import { initDB } from './model'
 import { delFlow, getFlow, getFlowList, saveFlow, updateFlow } from './service'
-import { chdir } from 'process'
-import { exec } from 'child_process'
+// import { chdir } from 'process'
+// import { exec } from 'child_process'
 
 let db: Database
 let rdkit: any
@@ -19,31 +19,31 @@ initRDKitModule().then((RDKit: any) => {
   rdkit = RDKit
 })
 
-const initServer = () => {
-  const reactionDir = join(__dirname, '../reaction')
-  chdir(reactionDir)
-  exec('torchserve --start --ncs --ts-config config.properties', (error) => {
-    if (error) {
-      dialog.showMessageBox({
-        type: 'error',
-        title: '错误',
-        message: `AI反应模型启动失败- ${error}`,
-      })
-    }
-  })
-
-  const conditionDir = join(__dirname, '../conditionDir')
-  chdir(conditionDir)
-  exec('condition', (error) => {
-    if (error) {
-      dialog.showMessageBox({
-        type: 'error',
-        title: '错误',
-        message: `AI反应条件预测模型启动失败- ${error}`,
-      })
-    }
-  })
-}
+// const initServer = () => {
+//   const reactionDir = join(__dirname, '../reaction')
+//   chdir(reactionDir)
+//   exec('torchserve --start --ncs --ts-config config.properties', (error) => {
+//     if (error) {
+//       dialog.showMessageBox({
+//         type: 'error',
+//         title: '错误',
+//         message: `AI反应模型启动失败- ${error}`,
+//       })
+//     }
+//   })
+//
+//   const conditionDir = join(__dirname, '../conditionDir')
+//   chdir(conditionDir)
+//   exec('condition', (error) => {
+//     if (error) {
+//       dialog.showMessageBox({
+//         type: 'error',
+//         title: '错误',
+//         message: `AI反应条件预测模型启动失败- ${error}`,
+//       })
+//     }
+//   })
+// }
 
 const API = 'http://127.0.0.1:6001'
 const CONDITION_API = 'http://127.0.0.1:6006'
@@ -192,7 +192,7 @@ app.whenReady().then(() => {
   ipcMain.handle('openFile', handleFileOpen)
 
   createWindow()
-  initServer()
+  // initServer()
   db = initDB()
 
   app.on('activate', function () {
